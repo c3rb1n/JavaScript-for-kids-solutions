@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Моя первая настоящая HTML-страничка</title>
+</head>
+<body>
+	<h1>Привет, мир!</h1>
+	<p>Моя первая веб-страничка.</p>
+	<script>
+		let alphabet = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя";
+		let randomStringLength = 6;
+		let randomString1 = "";
+		let randomString2 = "";
+		let randomString3 = "";
+
+		// while
+			while (randomString1.length < randomStringLength) {
+				let randomLetter = alphabet[Math.floor(Math.random() * alphabet.length)];
+				randomString1 += randomLetter;
+			}
+
+			console.log(randomString1); // "шмввсы"
+
+		// do…while
+			do {
+				let randomLetter = alphabet[Math.floor(Math.random() * alphabet.length)];
+				randomString2 += randomLetter;
+			} while (randomString2.length < randomStringLength);
+
+			console.log(randomString2); // "юйпэзф"
+
+		// for
+			for (let i = 0; i < randomStringLength; i++) {
+				let randomLetter = alphabet[Math.floor(Math.random() * alphabet.length)];
+				randomString3 += randomLetter;
+			}
+
+			console.log(randomString3); // "гузцущ"
+	</script>
+</body>
+<html>
