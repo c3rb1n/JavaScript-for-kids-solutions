@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Виселица!</title>
+</head>
+<body>
+	<h1>Виселица!</h1>
+	<script>
+		// Функции
+
+		// Возвращает случайно выбранное слово
+		let pickWord = () => {
+			let words = ["программа",
+					 "макака", 
+					 "прекрасный", 
+					 "оладушек",
+					 "строка",
+					 "число", 
+					 "массив",  
+					 "объект",
+					 "оператор",
+					 "инкремент",
+					 "декремент", 
+					 "условие",
+					 "цикл",
+					 "переменная",
+					 "данные",
+		];
+
+			return words[Math.floor(Math.random() * words.length)];
+		};
+
+		// Возвращает итоговый массив для заданного слова word
+		let setupAnswerArray = word => {
+			let answerArray = [];
+
+			for (let i = 0; i < word.length; i++) {
+				answerArray[i] = "_";
+			}
+
+			return answerArray;
+		};
+
+		// С помощью alert отображает текущее состояние игры
+		let showPlayerProgress = answerArray => alert(answerArray.join(" "));
+
+		// Запрашивает ответ игрока с помощью prompt
+		let getGuess = () => prompt("Угадайте букву, или нажмите Отмена для выхода из игры.");
+
+		// Обновляет answerArray согласно ответу игрока (guess) возвращает число, обозначающее, сколько раз буква guess 
+	    // встречается в слове, чтобы можно было обновить значение remainingLetters
+		let updateGameState = (guess, word, answerArray) => {
+			// correctGuessesCounter: счётчик количества открытых букв
+			let correctGuessesCounter = 0;
+
+			guess = guess.toLowerCase();
+
+			// Обновляет состояние игры
+			for (let j = 0; j < word.length; j++) {
+				if (word[j] === guess && answerArray[j] === "_") {
+					answerArray[j] = guess;
+					correctGuessesCounter++;
+				} else if (word[j] === guess && answerArray[j] !== "_") {
+					alert("Вы уже отгадали эту букву.");
+					break;
+				} else if (j === word.length - 1 && correctGuessesCounter === 0) {
+					alert("В загаданном слове нет такой буквы.");
+					triesCounter--;
+				}
+			}
+
+			return correctGuessesCounter;
+		};
+
+		let showAnswerAndCongratulatePlayer = answerArray => {
+			// С помощью alert показывает игроку отгаданное слово
+			// и поздравляет его с победой
+			alert(answerArray.join(" "));
+			alert("Отлично! Было загадано слово " + word + ".");
+		};
+		
+		// word: загаданное слово
+		let word = pickWord();
+
+		// answerArray: итоговый массив
+		let answerArray = setupAnswerArray(word);
+
+		// remainingLetters: сколько букв осталось угадать
+		let remainingLetters = word.length;
+
+		// triesCounter: оставшееся количество попыток
+		let triesCounter = 11;
+
+		// Игровой цикл
+		while (remainingLetters > 0 && triesCounter > 0) {
+			showPlayerProgress(answerArray);
+
+			// guess: ответ игрока
+			let guess = getGuess();
+
+			if (guess === null) {
+				break;
+			} else if (guess.length !== 1) {
+				alert("Пожалуйста, введите одиночную букву.");
+			} else {
+				// correctGuesses: количество открытых букв
+				let correctGuesses = updateGameState(guess, word, answerArray);
+				remainingLetters -= correctGuesses;
+			}
+		}
+
+		showAnswerAndCongratulatePlayer(answerArray);
+	</script>
+</body>
+</html>
