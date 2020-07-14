@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Перемещение мышки</title>
+</head>
+<body>
+	<h1 id="heading">Привет, мир!</h1>
+	<script src="https://code.jquery.com/jquery-2.1.0.js"></script>
+	<script>
+		let offsetX = 0;
+		let offsetY = 0;
+
+		let headingMove = () => {
+			if (offsetY === 0 && offsetX < 200) {
+				$("#heading").offset({left: offsetX, top: offsetY});
+				offsetX++;
+			} else if (offsetY < 200 && offsetX === 200) {
+				$("#heading").offset({left: offsetX, top: offsetY});
+				offsetY++;
+			} else if (offsetY === 200 && offsetX > 0) {
+				$("#heading").offset({left: offsetX, top: offsetY});
+				offsetX--;
+			} else if (offsetY > 0 && offsetX === 0) {
+				$("#heading").offset({left: offsetX, top: offsetY});
+				offsetY--;
+			}
+		}
+
+		setInterval(headingMove, 5);
+	</script>
+</body>
+</html>
