@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Гонки</title>
+</head>
+<body>
+	<script src="https://code.jquery.com/jquery-2.1.0.js"></script>
+	<script>
+		let Car = function (x, y) {
+			this.x = x;
+			this.y = y;
+			this.draw();
+		};
+
+		Car.prototype.draw = function () {
+			let carHtml = '<img src="http://nostarch.com/images/car.png">';
+
+			this.carElement = $(carHtml);
+
+			this.carElement.css({
+				position: "absolute",
+				left: this.x,
+				top: this.y
+			});
+
+			$("body").append(this.carElement);
+		};
+
+		Car.prototype.moveRight = function(shift) {  // (*)
+			this.x += shift;                         // (*)
+
+			this.carElement.css({
+				left: this.x,
+				top: this.y
+			});
+		};
+
+		Car.prototype.moveLeft = function(shift) {   // (*)
+			this.x -= shift;                         // (*)
+
+			this.carElement.css({
+				left: this.x,
+				top: this.y
+			});
+		};
+
+		Car.prototype.moveUp = function(shift) {     // (*)
+			this.y -= shift;                         // (*)
+
+			this.carElement.css({
+				left: this.x,
+				top: this.y
+			});
+		};
+
+		Car.prototype.moveDown = function(shift) {   // (*)
+			this.y += shift;                         // (*)
+
+			this.carElement.css({
+				left: this.x,
+				top: this.y
+			});
+		};
+
+		let tesla = new Car(20, 20);
+		let nissan = new Car(100, 200);
+
+		setInterval(function() {                             //
+			nissan.moveRight(Math.floor(Math.random() * 6)); // Реализация
+			tesla.moveRight(Math.floor(Math.random() * 6));  //
+		}, 30);                                              //
+
+		/*
+			(*) - этим знаком отмечены места где используется величина сдвига shift. 
+			Эта величина используется в коде 8 раз по два раза для каждого метода движения
+			(moveRight, moveLeft, moveUp, moveDown). Первое из двух использований в методе -
+			использование shift в качестве аргумента метода, Второе - для изменения координат
+			машины (координат x и y);
+		*/
+	</script>
+</body>
+</html>

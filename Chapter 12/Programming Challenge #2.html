@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Гонки</title>
+</head>
+<body>
+	<script src="https://code.jquery.com/jquery-2.1.0.js"></script>
+	<script>
+		let Car = function (x, y) {
+			this.x = x;
+			this.y = y;
+			this.draw();
+			this.speed = 5; // свойство speed
+		};
+
+		Car.prototype.draw = function () {
+			let carHtml = '<img src="http://nostarch.com/images/car.png">';
+
+			this.carElement = $(carHtml);
+
+			this.carElement.css({
+				position: "absolute",
+				left: this.x,
+				top: this.y
+			});
+
+			$("body").append(this.carElement);
+		};
+
+		Car.prototype.moveRight = function() {
+			this.x += this.speed; // использование свойства speed для перемещения вправо
+
+			this.carElement.css({
+				left: this.x,
+				top: this.y
+			});
+		};
+
+		Car.prototype.moveLeft = function() {
+			this.x -= this.speed; // использование свойства speed для перемещения влево
+
+			this.carElement.css({
+				left: this.x,
+				top: this.y
+			});
+		};
+
+		Car.prototype.moveUp = function() {
+			this.y -= this.speed; // использование свойства speed для перемещения вверх
+
+			this.carElement.css({
+				left: this.x,
+				top: this.y
+			});
+		};
+
+		Car.prototype.moveDown = function() {
+			this.y += this.speed; // использование свойства speed для перемещения вниз
+
+			this.carElement.css({
+				left: this.x,
+				top: this.y
+			});
+		};
+
+		let tesla = new Car(20, 20);
+		let nissan = new Car(100, 200);
+
+		/*
+			setInterval(function() { // Раскомментируйте метод setInterval, поизменяйте значение свойства
+				nissan.moveRight();  // speed в конструкторе Car и попробуйте в методе setInterval "nissan" 
+			}, 30);                  // заменить на "tesla", чтобы проверить, как работает свойство speed
+		*/
+	</script>
+</body>
+</html>
