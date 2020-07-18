@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Canvas</title>
+</head>
+<body>
+	<canvas id="canvas" width="200" height="200"></canvas>
+	<script src="http://code.jquery.com/jquery-2.1.0.js"></script>
+	<script>
+		let circle = event => {
+			ctx.beginPath();
+			ctx.arc(event.offsetX, event.offsetY, 3, 0, Math.PI * 2, false);
+			ctx.fill()
+		}
+
+		let canvas = document.getElementById("canvas");
+		let ctx = canvas.getContext("2d");
+
+		$("canvas").mousemove(circle);
+	</script>
+</body>
+</html>

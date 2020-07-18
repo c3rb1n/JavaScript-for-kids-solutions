@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Canvas</title>
+</head>
+<body>
+	<canvas id="canvas" width="200" height="200"></canvas>
+	<script>
+		let canvas = document.getElementById("canvas");
+		let ctx = canvas.getContext("2d");
+
+		// Рисуем разноцветные прямоугольники
+
+			// Создаём первый прямоугольник
+			ctx.fillStyle = "Navy";        // Задаём цвет прямоугольника по названию цвета на английском языке
+			ctx.fillRect(0, 0, 50, 100);   // Рисуем первый прямоугольник
+
+			// Создаём второй прямоугольник
+			ctx.fillStyle = "Gold";        // Задаём цвет прямоугольника по названию цвета на английском языке
+			ctx.fillRect(50, 0, 50, 100);  // Рисуем второй прямоугольник
+
+			// Создаём третий прямоугольник
+			ctx.fillStyle = "#cf0921";     // Задаём цвет прямоугольника в шестнадцатеричной системе счисления (HEX)
+			ctx.fillRect(100, 0, 50, 100); // Рисуем третий прямоугольник
+	</script>
+</body>
+</html>

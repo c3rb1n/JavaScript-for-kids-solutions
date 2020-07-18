@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Canvas</title>
+</head>
+<body>
+	<canvas id="canvas" width="200" height="200"></canvas>
+	<script>
+		let canvas = document.getElementById("canvas");
+		let ctx = canvas.getContext("2d");
+
+		// Рисуем робота
+
+            // Создаём голову
+			ctx.fillRect(75, 10, 50, 50);
+
+			// Создаём шею
+			ctx.fillRect(95, 60, 10, 20);
+			
+			// Создаём руки
+			ctx.fillRect(35, 80, 130, 10);
+
+			// Создаём туловище
+			ctx.fillRect(65, 90, 70, 50);
+
+			// Создаём ноги
+			ctx.fillRect(65, 140, 10, 50);  // Рисуем левую ногу
+			ctx.fillRect(125, 140, 10, 50); // Рисуем правую ногу
+	</script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Canvas</title>
+</head>
+<body>
+	<canvas id="canvas" width="200" height="200"></canvas>
+	<script>
+		let circle = (x, y, radius, fillCircle) => {
+			ctx.beginPath(); 
+			ctx.arc(x, y, radius, 0, Math.PI * 2, false);
+
+			// Проверка истинности аргумента fillCircle
+			if (fillCircle) {
+				ctx.fill();   // Если fillCircle истинно, то окружность будет заполнена, т.к. вызовется метод fill
+			} else {
+				ctx.stroke(); // Если fillCircle ложно, то окружность будет обрисована контуром, т.к. вызовется метод stroke
+			}
+		};
+
+		let canvas = document.getElementById("canvas");
+		let ctx = canvas.getContext("2d");
+
+		// Рисуем снеговика
+
+			// Задаём ширину линий
+			ctx.lineWidth = 2;
+
+			// Создаём голову снеговика
+			circle(100, 50, 20, false);
+
+			// Создаём туловище снеговика
+			circle(100, 95, 25, false);
+
+			// Создаём пуговицы снеговика
+			circle(100, 83, 3, true);      // Рисуем верхнюю пуговицу
+			circle(100, 95, 3, true);      // Рисуем среднюю пуговицу
+			circle(100, 107, 3, true);     // Рисуем нижнюю пуговицу
+
+			// Создаём глаза снеговика
+			circle(94, 46, 3, true);       // Рисуем левый глаз
+			circle(106, 46, 3, true);      // Рисуем правый глаз
+
+			// Создаём нос снеговика
+			ctx.fillStyle = "Darkorange";  // Меняем цвет на Darkorange
+			circle(100, 53, 3, true);      // Рисуем нос
+	</script>
+</body>
+</html>
