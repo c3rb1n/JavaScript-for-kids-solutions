@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Keyboard input</title>
+</head>
+<body>
+	<canvas id="canvas" width="400" height="400"></canvas>
+	<script src="https://code.jquery.com/jquery-2.1.0.js"></script>
+	<script>
+		let keyNames = {
+			32: "space",  // пробел
+			37: "left",   // влево
+			38: "up",     // вверх
+			39: "right",  // вправо
+			40: "down",   // вниз
+			16: "shift",  // шифт
+			13: "enter",  // ввод
+			18: "alt"     // альт
+		};
+		
+		$("body").keydown(event => console.log(keyNames[event.keyCode]));
+	</script>
+</body>
+</html>
