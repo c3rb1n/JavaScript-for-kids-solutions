@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Виселица!</title>
+</head>
+<body>
+	<h1>Виселица!</h1>
+	<canvas id="canvas" width="500" height="500"></canvas>
+	<script>
+		let pickWord = () => {
+			let words = [
+				 	 "программа",
+					 "макака", 
+					 "прекрасный", 
+					 "оладушек",
+					 "строка",
+					 "число", 
+					 "массив",  
+					 "объект",
+					 "оператор",
+					 "инкремент",
+					 "декремент", 
+					 "условие",
+					 "цикл",
+					 "переменная",
+					 "данные",
+		];
+
+			return words[Math.floor(Math.random() * words.length)];
+		};
+
+		let setupAnswerArray = word => {
+			let answerArray = [];
+
+			for (let i = 0; i < word.length; i++) {
+				answerArray[i] = "_";
+
+				// Создаём нижнее подчёркивание для каждой буквы
+				ctx.beginPath();
+				ctx.moveTo(80 + 40 * i, 420);
+				ctx.lineTo(110 + 40 * i, 420);
+				ctx.stroke();
+			}
+
+			return answerArray;
+		};
+
+		let showPlayerProgress = answerArray => alert(answerArray.join(" "));
+
+		let getGuess = () => prompt("Угадайте букву, или нажмите Отмена для выхода из игры.");
+
+		let updateGameState = (guess, word, answerArray) => {
+			let correctGuessesCounter = 0;
+
+			guess = guess.toLowerCase();
+
+			for (let j = 0; j < word.length; j++) {
+				if (word[j] === guess && answerArray[j] === "_") {
+					answerArray[j] = guess;
+					correctGuessesCounter++;
+
+					// Вызываем функцию drawCorrectLetter и передаём в качестве аргументов guess и j
+					drawCorrectLetter(guess, j);
+				} else if (word[j] === guess && answerArray[j] !== "_") {
+					alert("Вы уже отгадали эту букву.");
+					break;
+				} else if (j === word.length - 1 && correctGuessesCounter === 0) {
+					alert("В загаданном слове нет такой буквы.");
+					triesCounter--;
+					drawHangman(triesCounter);
+
+					// Вызываем функцию drawIncorrectLetter и передаём в качестве аргументов guess, j и triesCounter
+					drawIncorrectLetter(guess, triesCounter);
+				}
+			}
+
+			return correctGuessesCounter;
+		};
+
+		let showAnswerAndCongratulatePlayer = answerArray => {
+			alert(answerArray.join(" "));
+			alert("Отлично! Было загадано слово " + word + ".");
+		};
+
+		let drawHangman = triesCounter => {
+			ctx.lineWidth = 3;
+
+			ctx.beginPath();
+
+			if (triesCounter === 5) {
+				ctx.strokeRect(250, 250, 20, 20);
+			} else if (triesCounter === 4) {
+				ctx.moveTo(260, 270);
+				ctx.lineTo(260, 320);
+			} else if (triesCounter === 3) {
+				ctx.moveTo(260, 285);
+				ctx.lineTo(235, 275);
+			} else if (triesCounter === 2) {
+				ctx.moveTo(260, 285);
+				ctx.lineTo(285, 275);
+			} else if (triesCounter === 1) {
+				ctx.moveTo(260, 320);
+				ctx.lineTo(240, 355);
+			} else if (triesCounter === 0) {
+				ctx.moveTo(260, 320);
+				ctx.lineTo(280, 355);
+			}
+
+			ctx.stroke();
+		}
+		
+		// Функция, отрисовывающая угаданные буквы
+		let drawCorrectLetter = (guess, index) => {
+			// Задаём шрифт угаданной буквы
+			ctx.font = "48px Courier";
+
+			// Отображаем угаданную букву
+			ctx.fillText(guess, 80 + 40 * index, 405);
+		};
+
+		// Функция, отображающая неправильные ответы
+		let drawIncorrectLetter = (guess, triesCounter) => {
+			// Задаём шрифт неправильной буквы
+			ctx.font = "48px Courier";
+
+			if (triesCounter > 2) {                                            // В данных блоках и подблоках кода
+                                                                               // интструкции выполняются в зависимости
+				// Отображаем неправильную букву                               // от оставшегося количества попыток для
+				ctx.fillText(guess, 80, 275 + incorrectLetterPositionIndex);   // угадывания слова:
+                                                                               // 
+				// Перечёркиваем неправильную букву                            // 1) В этом блоке неправильные зачёркнутые буквы
+				ctx.beginPath();                                               // отрисовываются в первом (левом) столбике,
+				ctx.moveTo(80, 268 + incorrectLetterPositionIndex);            // и затем обновляется индекс позиции неправильной
+				ctx.lineTo(110, 268 + incorrectLetterPositionIndex);           // буквы
+                ctx.stroke();                                                  //
+                                                                               //
+				// Обновляем индекс позиции неправильной буквы                 //
+				incorrectLetterPositionIndex += 40;                            //
+			} else {                                                           // 2) В этом блоке:
+				if (triesCounter === 2) {                                      // 
+                                                                               // 2.1) Сначала выполняется единожды подблок if
+					// Обнуляем индекс позиции неправильной буквы              // где обнуляется индекс позиции неправильной буквы
+					incorrectLetterPositionIndex = 0;                          //
+				}                                                              //
+                                                                               //
+				// Отображаем неправильную букву                               // 2.2) Потом неправильные зачёркнутые буквы
+				ctx.fillText(guess, 160, 275 + incorrectLetterPositionIndex);  // отрисовываются во втором (правом) столбике,
+                                                                               // и затем обновляется индекс позиции неправильной
+				// Перечёркиваем неправильную букву                            // буквы
+				ctx.beginPath();                                               //
+				ctx.moveTo(160, 268 + incorrectLetterPositionIndex);           //
+				ctx.lineTo(190, 268 + incorrectLetterPositionIndex);           //
+				ctx.stroke();                                                  //
+                                                                               //
+				// Обновляем индекс позиции неправильной буквы                 //
+				incorrectLetterPositionIndex += 40;                            //
+			}                                                                  //
+		};
+
+		let canvas = document.getElementById("canvas");
+		let ctx = canvas.getContext("2d");
+
+		let word = pickWord();
+		let answerArray = setupAnswerArray(word);
+		let remainingLetters = word.length;
+		let triesCounter = 6;
+		let incorrectLetterPositionIndex = 0;
+
+		while (remainingLetters > 0 && triesCounter > 0) {
+			showPlayerProgress(answerArray);
+
+			let guess = getGuess();
+
+			if (guess === null) {
+				break;
+			} else if (guess.length !== 1) {
+				alert("Пожалуйста, введите одиночную букву.");
+			} else {
+				let correctGuesses = updateGameState(guess, word, answerArray);
+				remainingLetters -= correctGuesses;
+			}
+		}
+
+		showAnswerAndCongratulatePlayer(answerArray);
+	</script>
+</body>
+</html>
