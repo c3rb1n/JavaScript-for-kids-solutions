@@ -122,7 +122,7 @@
 			if (newHead.equal(apple.position)) {
 				score++;
 
-				// Передаём в метод move this.segments в качестве аргумента segments
+				// Передаём в метод метод move конструктора Apple this.segments в качестве аргумента segments
 				apple.move(this.segments);
 				animationTime--;
 			} else {
@@ -183,11 +183,18 @@
 			// В цикле while проверяем не очутилось ли яблоко
 			// в ячейке, которая уже занята частью тела змейки
 			while (i < segments.length) {
+
+				// Если яблоко оказалось в ячейке, которая уже занята частью тела змейки
 				if (segments[i].equal(this.position)) {
+
+					// Dызываем метод move конструктора Apple и передаём туда segments
 					this.move(segments);
+
+					// Вызываем return, для немедленного выхода из метода move конструктора Apple
 					return;
 				}
 
+				// Увеличиваем переменную i на 1
 				i++;
 			}
 		};
